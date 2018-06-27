@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="My Suite">
+    <test name="Astro Tests">
+        <classes>
+
+
+
+            <class name="com.qa.test.AssignmentOne">
+              <methods>
+               <include name="pageLoad"/>
+
+              </methods>
+            </class>
+
+            <class name="com.qa.support.CreateReport">
+                <methods>
+                    <include name="flushReport"/>
+
+                </methods>
+
+            </class>
+
+        </classes>
+    </test>
+</suite>
