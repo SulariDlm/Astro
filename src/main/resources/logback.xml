@@ -1,0 +1,3 @@
+<configuration>
+    <logger name="com.qa" level="WARN" />
+</configuration>

@@ -9,6 +9,7 @@
             <class name="com.qa.test.AssignmentOne">
               <methods>
                <include name="pageLoad"/>
+               <include name="verifyLinks"/>
 
               </methods>
             </class>
