@@ -21,9 +21,8 @@ import java.util.List;
  * Created by sulari.dulsara on 27/6/2018 .
  */
 public class AssignmentOne {
-    WebDriver webDriver;
-    ExtentTest test;
-
+    private WebDriver webDriver;
+    private ExtentTest test;
 
     @BeforeClass
     public void setUp() throws Exception {
@@ -62,7 +61,6 @@ public class AssignmentOne {
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Page load failed within 30 second");
             }
-
         }
 
         try {
@@ -79,13 +77,13 @@ public class AssignmentOne {
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Main Page load failed within 30 second");
             }
-
         }
 
         try {
             //Verify page loaded completly
             String footer = AstroWebPageElement.pageFooter(webDriver).getText();
             String expected = "Copyright © 2018. Measat Broadcast Network Systems Sdn Bhd (240064-A). All Rights Reserved.";
+            //Check expected value for footer is loaded
             Assert.assertEquals(expected, footer);
             //Add pass entry to test report
             test.log(LogStatus.PASS, "Main Page completely loaded success within 5 second");
@@ -98,8 +96,8 @@ public class AssignmentOne {
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Main Page completely loaded failed within 30 second");
             }
-
         }
+
         Report.getInstance().endReportTest(test);
     }
 
@@ -129,7 +127,7 @@ public class AssignmentOne {
         } catch (Exception e) {
             test.log(LogStatus.FAIL, "Links verify failed");
         }
-        Report.getInstance().endReportTest(test);
 
+        Report.getInstance().endReportTest(test);
     }
 }
