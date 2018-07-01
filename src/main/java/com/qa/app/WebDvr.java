@@ -10,15 +10,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
  */
 public class WebDvr {
     private static WebDvr self;
-    public static WebDriver webDriver;
+    private WebDriver webDriver;
 
 
     private WebDvr() throws Exception {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--start-maximized");
-        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver_238.exe");
-        webDriver = new ChromeDriver(chromeOptions);
-        ImplicitWait.sleepFor(1000);
+
     }
 
     public static WebDvr getInstance() throws Exception {
@@ -28,7 +24,13 @@ public class WebDvr {
         return self;
     }
 
-    public org.openqa.selenium.WebDriver getDriver() {
+    public org.openqa.selenium.WebDriver getDriver() throws Exception {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("--disable-notifications");
+        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver_238.exe");
+        webDriver = new ChromeDriver(chromeOptions);
+        ImplicitWait.sleepFor(1000);
         return webDriver;
     }
 }

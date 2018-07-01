@@ -1,13 +1,12 @@
 package com.qa.test;
 
 import com.qa.app.WebDvr;
-import com.qa.elements.AstroWebPageElement;
+import com.qa.elements.WebPageElement;
 import com.qa.support.*;
 import com.qa.utils.TestData;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import junit.framework.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
@@ -21,23 +20,24 @@ import java.util.List;
  * Created by sulari.dulsara on 27/6/2018 .
  */
 public class AssignmentOne {
-    private WebDriver webDriver;
+    private WebDriver webDriverAst;
     private ExtentTest test;
 
     @BeforeClass
     public void setUp() throws Exception {
-        webDriver = WebDvr.getInstance().getDriver();
+        webDriverAst = WebDvr.getInstance().getDriver();
 
     }
 
     @AfterClass
     public void tearDown() throws Exception {
         ImplicitWait.sleepFor(1000);
+        webDriverAst.close();
     }
 
     @AfterMethod
     public void getResult() throws Exception {
-        ImplicitWait.waitFor(webDriver, 5);
+        ImplicitWait.waitFor(webDriverAst, 5);
 
     }
 
@@ -45,11 +45,11 @@ public class AssignmentOne {
     public void pageLoad() {
         //Create test report and add test case to the report
         test = Report.getInstance().getReportTest("AssignmentOne.pageLoad");
-        webDriver.get(TestData.getSafeString("AstroURL"));
+        webDriverAst.get(TestData.getSafeString("AssignmentOne_AstroURL"));
 
         try {
             //Wait one second until page load and click on Continue to Astro
-            ExplicitWait.elementToBeClickable(webDriver, AstroWebPageElement.pageVerificationAfter1Sec(webDriver), 1).click();
+            ExplicitWait.elementToBeClickable(webDriverAst, WebPageElement.pageVerificationAfter1Sec(webDriverAst), 1).click();
             //Add pass entry to test report
             test.log(LogStatus.PASS, "Page load success within 1 second");
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class AssignmentOne {
             test.log(LogStatus.FAIL, "Page load failed within 1 second");
             //If above click failed wait for 30 seconds to click on Continue to Astro
             try {
-                ExplicitWait.elementToBeClickable(webDriver, AstroWebPageElement.pageVerificationAfter1Sec(webDriver), 30).click();
+                ExplicitWait.elementToBeClickable(webDriverAst, WebPageElement.pageVerificationAfter1Sec(webDriverAst), 30).click();
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Page load failed within 30 second");
             }
@@ -65,7 +65,7 @@ public class AssignmentOne {
 
         try {
             //Wait five second until page load and click on Continue to Astro
-            ExplicitWait.elementToBeClickable(webDriver, AstroWebPageElement.pageVerificationAfter5Sec(webDriver), 5).click();
+            ExplicitWait.elementToBeClickable(webDriverAst, WebPageElement.pageVerificationAfter5Sec(webDriverAst), 5).click();
             //Add pass entry to test report
             test.log(LogStatus.PASS, "Main Page load success within 5 second");
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class AssignmentOne {
             test.log(LogStatus.FAIL, "Main Page load failed within 5 second");
             //If above click failed wait for 30 seconds to click on Continue to Astro
             try {
-                ExplicitWait.elementToBeClickable(webDriver, AstroWebPageElement.pageVerificationAfter5Sec(webDriver), 30).click();
+                ExplicitWait.elementToBeClickable(webDriverAst, WebPageElement.pageVerificationAfter5Sec(webDriverAst), 30).click();
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Main Page load failed within 30 second");
             }
@@ -81,7 +81,7 @@ public class AssignmentOne {
 
         try {
             //Verify page loaded completly
-            String footer = AstroWebPageElement.pageFooter(webDriver).getText();
+            String footer = WebPageElement.pageFooter(webDriverAst).getText();
             String expected = "Copyright © 2018. Measat Broadcast Network Systems Sdn Bhd (240064-A). All Rights Reserved.";
             //Check expected value for footer is loaded
             Assert.assertEquals(expected, footer);
@@ -92,7 +92,7 @@ public class AssignmentOne {
             test.log(LogStatus.FAIL, "Main Page completely loaded failed within 5 second");
             //If above click failed wait for 30 seconds to click on Continue to Astro
             try {
-                ExplicitWait.elementToBeClickable(webDriver, AstroWebPageElement.pageVerificationAfter5Sec(webDriver), 30).click();
+                ExplicitWait.elementToBeClickable(webDriverAst, WebPageElement.pageVerificationAfter5Sec(webDriverAst), 30).click();
             } catch (Exception e1) {
                 test.log(LogStatus.FAIL, "Main Page completely loaded failed within 30 second");
             }
@@ -107,7 +107,7 @@ public class AssignmentOne {
         test = Report.getInstance().getReportTest("AssignmentOne.verifyLinks");
 
         try {
-            List<WebElement> links = webDriver.findElements(By.cssSelector("a"));
+            List<WebElement> links = WebPageElement.getHyperLinks(webDriverAst);
             String href;
             for (WebElement link : links) {
                 href = link.getAttribute("href");
@@ -118,9 +118,9 @@ public class AssignmentOne {
                 int statusCode = 0;
                 try {
                     statusCode = HttpResponseCode.httpResponseCodeViaGet(href);
-                    test.log(LogStatus.INFO, href + " gave a response code of " + statusCode + " with response time of : " + timer.elapsedTime() + " sec");
+                    test.log(LogStatus.INFO, "Link : <a>"+href + "</a> <br> Response code : <b> " + statusCode + "</b> <br> Response time : <b>" + timer.elapsedTime() + " sec </b>");
                 } catch (Exception e) {
-                    test.log(LogStatus.WARNING, href + " gave a response code of " + statusCode + " with response time of : " + timer.elapsedTime() + " sec");
+                    test.log(LogStatus.WARNING, "Link : <a>"+href + "</a> <br> Response code : <b> " + statusCode + "</b> <br> Response time : <b>" + timer.elapsedTime() + " sec </b>");
                 }
 
             }
@@ -130,4 +130,6 @@ public class AssignmentOne {
 
         Report.getInstance().endReportTest(test);
     }
+
+
 }

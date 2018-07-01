@@ -4,14 +4,30 @@
     <test name="Astro Tests">
         <classes>
 
-
-
             <class name="com.qa.test.AssignmentOne">
               <methods>
                <include name="pageLoad"/>
                <include name="verifyLinks"/>
 
               </methods>
+            </class>
+
+            <class name="com.qa.test.AssignmentTwo">
+                <methods>
+                    <include name="pageLoad"/>
+                    <include name="search"/>
+                    <include name="priceSort"/>
+                </methods>
+            </class>
+
+            <class name="com.qa.test.AssignmentThree">
+                <methods>
+                    <include name="login"/>
+                    <include name="selectSecondContent"/>
+                    <include name="synopsisCharacterLength"/>
+                    <include name="setReminderAndAddToFavourite"/>
+
+                </methods>
             </class>
 
             <class name="com.qa.support.CreateReport">
